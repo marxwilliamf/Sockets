@@ -1,7 +1,10 @@
 package com.wfm;
 
+import com.wfm.cliente.Cliente;
+
 public class Main {
     public static void main(String[] args) {
+		
     	//args[0] = host
     	//args[1] = port
         //args[2] = arquivo
@@ -18,6 +21,7 @@ public class Main {
 				port = temp;
 			}
 		}
+
 		String nomeArquivoParaBaixar = null;
 		if(args[2].length() > 2 && !args[2].isEmpty()){
 			nomeArquivoParaBaixar = args[2];

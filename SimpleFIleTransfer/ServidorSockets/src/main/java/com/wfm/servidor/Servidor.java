@@ -1,4 +1,4 @@
-package com.wfm.servidor;
+package com.wfm.servidor1024;
 
 import java.io.*;
 import java.net.*;
@@ -19,12 +19,12 @@ public class Servidor {
 	public void enviaArquivo(String nomeArquivoParaDownload){
         // Cria um socket para escutar as conexões na porta 12345
         try(
-			ServerSocket servidor = new ServerSocket(this.port);
+			ServerSocket server = new ServerSocket(this.port);
 		) {
 			System.out.println("Servidor iniciado!");
 			while (true) {
 				// Aceita uma conexão do cliente
-				Socket socket = servidor.accept();
+				Socket socket = server.accept();
 				System.out.println("Conexão estabelecida com o cliente: " + socket.getInetAddress().getHostAddress());
 
 				leArquivo(nomeArquivoParaDownload, socket);
