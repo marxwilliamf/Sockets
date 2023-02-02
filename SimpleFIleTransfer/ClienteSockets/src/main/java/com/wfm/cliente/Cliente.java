@@ -1,4 +1,4 @@
-package com.wfm;
+package com.wfm.cliente;
 
 import java.io.*;
 import java.net.*;
