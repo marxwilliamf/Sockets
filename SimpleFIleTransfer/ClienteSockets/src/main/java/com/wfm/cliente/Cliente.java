@@ -21,11 +21,18 @@ public class Cliente {
 			Socket socket = new Socket(this.host, this.port);
 			InputStream fonteArquivoSocket = socket.getInputStream(); // Cria uma stream para receber o arquivo
 		) {
+			if(fonteArquivoSocket!=null){
+				System.out.println("inputSocket conectado");
+			} else {
+				System.out.println("Input Socket Desconectado");
+			}
 			System.out.println("Conexão estabelecida com o servidor!");
 			this.arquivo = criaEVerificaEscritaArquivo(nomeArquivoBaixar);
-			if(arquivo != null){
+			if(this.arquivo != null){
 				salvaArquivo(fonteArquivoSocket);
 				System.out.println("Arquivo baixado com sucesso");
+			} else{
+				System.out.println("Erro ao baixar arquivo");
 			}
 		} catch(IOException e) {
 			System.out.println("Erro ao baixar arquivo");	
@@ -36,9 +43,11 @@ public class Cliente {
 		File arq;
 		try{
 			arq = new File(nomeArquivoBaixar);
-			if(arq.canWrite()){
-				return arq;
-			}
+			// if(arq.canWrite()){
+			 	return arq;
+			// } else{
+			// 	System.out.println("Arquivo nao pode ser escrito.");
+			// }
 		} catch(NullPointerException e){
 			System.out.println("O arquivo não pode ser escrito. Verifique as permissões do arquivo.");
 			e.printStackTrace();
@@ -47,11 +56,13 @@ public class Cliente {
 }
 
 	public void salvaArquivo(InputStream fonteArquivoSocket) {
-		try (FileOutputStream outputStreamFile = new FileOutputStream(arquivo)) {
+		try (FileOutputStream outputStreamFile = new FileOutputStream(this.arquivo)) {
+			System.out.println("Salva Arquivo");
 			// Recebe o arquivo do servidor
 			byte[] buffer = new byte[1024 * 1024 * 1024 * megas];
 			int bytesLidos;
 			while ((bytesLidos = fonteArquivoSocket.read(buffer)) > 0) {
+				System.out.println("Write ..");
 				outputStreamFile.write(buffer, 0, bytesLidos);
 			}
 		} catch(SecurityException | IOException e) {
