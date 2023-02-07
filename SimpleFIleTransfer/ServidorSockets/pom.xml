@@ -10,9 +10,9 @@
 
   <properties>
     <jdk.home>C:\Program Files\Java\jdk-12</jdk.home>
-    <java.version>12</java.version>
-    <maven.compiler.source>12</maven.compiler.source>
-    <maven.compiler.target>12</maven.compiler.target>
+    <java.version>17</java.version>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.main.class>com.wfm.Main</java.main.class>
   </properties>
