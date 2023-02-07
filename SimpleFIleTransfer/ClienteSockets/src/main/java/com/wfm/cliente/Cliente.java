@@ -22,21 +22,28 @@ public class Cliente {
 			InputStream fonteArquivoSocket = socket.getInputStream(); // Cria uma stream para receber o arquivo
 		) {
 			System.out.println("Conexão estabelecida com o servidor!");
-			verificaEscritaArquivo(nomeArquivoBaixar);
-			salvaArquivo(fonteArquivoSocket);
-				
-			System.out.println("Arquivo baixado com sucesso");
-		} catch(IOException e) {	
+			this.arquivo = criaEVerificaEscritaArquivo(nomeArquivoBaixar);
+			if(arquivo != null){
+				salvaArquivo(fonteArquivoSocket);
+				System.out.println("Arquivo baixado com sucesso");
+			}
+		} catch(IOException e) {
+			System.out.println("Erro ao baixar arquivo");	
 			e.printStackTrace();
 		}
-		System.out.println("Arquivo recebido com sucesso!");
 	}
-	public void verificaEscritaArquivo(String nomeArquivoBaixar){
-		arquivo = new File(nomeArquivoBaixar);
-	if (!arquivo.canWrite()) {
-		System.out.println("O arquivo não pode ser escrito. Verifique as permissões do arquivo.");
-		return;
-	}
+	public File criaEVerificaEscritaArquivo(String nomeArquivoBaixar){
+		File arq;
+		try{
+			arq = new File(nomeArquivoBaixar);
+			if(arq.canWrite()){
+				return arq;
+			}
+		} catch(NullPointerException e){
+			System.out.println("O arquivo não pode ser escrito. Verifique as permissões do arquivo.");
+			e.printStackTrace();
+		}
+		return null;
 }
 
 	public void salvaArquivo(InputStream fonteArquivoSocket) {
@@ -47,11 +54,9 @@ public class Cliente {
 			while ((bytesLidos = fonteArquivoSocket.read(buffer)) > 0) {
 				outputStreamFile.write(buffer, 0, bytesLidos);
 			}
-		} catch(SecurityException e) {
+		} catch(SecurityException | IOException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} 
+		}
 	}
 	public String getHost() {
 		return host;
